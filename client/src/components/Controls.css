@@ -3,6 +3,11 @@
   margin-bottom: 10px;
 }
 
-.control-sort {
+.control-group {
   display: flex;
+}
+
+.control-filters {
+  display: flex;
+  margin-left: 20px
 }
