@@ -9,5 +9,6 @@
 
 .control-filters {
   display: flex;
+  flex: 1;
   margin-left: 20px
 }

@@ -10,6 +10,8 @@ function App() {
     onChangeSortByName,
     filters,
     onChangeFilter,
+    onNext,
+    onPrev,
   } = useMissions();
 
   return (
@@ -19,6 +21,8 @@ function App() {
         onChangeSort={onChangeSortByName}
         filters={filters}
         onChangeFilter={onChangeFilter}
+        onNext={onNext}
+        onPrev={onPrev}
       />
       <Missions missions={missions} />
     </div>
