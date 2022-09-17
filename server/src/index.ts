@@ -2,19 +2,14 @@ import * as express from "express";
 import * as pgPromise from "pg-promise";
 const cors = require("cors");
 
+import { dbConnection } from "./constants";
+
 const app = express();
 app.use(cors());
 const port = 3001;
 
-const cn = {
-  host: "localhost",
-  port: 5432,
-  database: "postgres",
-  user: "admin",
-  password: "password",
-};
 const pgp = pgPromise();
-const db = pgp(cn);
+const db = pgp(dbConnection);
 
 // Testing endpoint to fetch all missions
 app.get("/api/missions/all", async (req, res) => {
@@ -23,11 +18,8 @@ app.get("/api/missions/all", async (req, res) => {
 });
 
 app.get("/api/missions", async (req, res) => {
-  // TODO: We need to sanitize the input
+  // TODO: Need to sanitize the input
   const { offset = 0, limit = 5, sort = "id", filter } = req.query;
-
-  // DEBUG log
-  // console.log({ offset, limit, sort, filter });
 
   try {
     const allMissions = await getMissions({
@@ -58,9 +50,6 @@ const getMissions = ({ limit, offset, sortBy, filter }: GetMissionArgs) => {
     sortBy
   )} LIMIT ${limit} OFFSET ${offset};`;
 
-  // DEBUG log
-  // console.log({ query });
-
   return db
     .many(query, [filter])
     .then((data) => {
@@ -80,7 +69,6 @@ const getOrderBy = (sortBy: string) => {
   }
 };
 
-// WHERE first_name IN ('Ann','Anne','Annie');
 const getFilterBy = (filter?: string[]) => {
   if (filter) {
     return "WHERE type LIKE ANY($1)";
