@@ -13,12 +13,14 @@ type UseMissionsAPI = {
 const PAGE_SIZE = 5;
 
 export const useMissions = (): UseMissionsAPI => {
+  // State
   const [missions, setMissions] = useState<Mission[]>([]);
   const [isSortedByName, setIsSortedByName] =
     useState<boolean>(getPersistedSort);
   const [filters, setFilters] = useState<MissionType[]>(getPersistedFilter);
   const [offset, setOffset] = useState<number>(0);
 
+  // Handlers
   const onChangeSortByName = () => {
     setIsSortedByName((value) => !value);
   };
@@ -39,11 +41,13 @@ export const useMissions = (): UseMissionsAPI => {
     setOffset((offset) => Math.max(offset - PAGE_SIZE, 0));
   };
 
+  // Updates local storage when settings change
   useEffect(() => {
     setPersistedSort(isSortedByName);
     setPersistedFilters(filters);
   }, [isSortedByName, filters]);
 
+  // Fetches missions from server controls have been used
   useEffect(() => {
     const fetchMissionsBasedOnState = async () => {
       const data = await fetchMissions({
@@ -67,8 +71,8 @@ export const useMissions = (): UseMissionsAPI => {
   };
 };
 
+// Fetching function
 const url = "http://localhost:3001/api/missions";
-
 type QueryParams = {
   sort: "name" | undefined;
   filters: MissionType[];
@@ -110,7 +114,7 @@ const buildParams = ({ sort, filters, offset }: QueryParams): string => {
   return "";
 };
 
-// persistence
+// Persistence functions
 const SORT_KEY = "sortedByName";
 const getPersistedSort = (): boolean => {
   const persistedSortedByName = window.localStorage.getItem(SORT_KEY);
