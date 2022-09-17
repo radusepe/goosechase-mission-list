@@ -1,0 +1,8 @@
+.control-bar {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.control-sort {
+  display: flex;
+}

@@ -1,8 +1,10 @@
 import * as express from "express";
 import * as pgPromise from "pg-promise";
+const cors = require("cors");
 
 const app = express();
-const port = 3000;
+app.use(cors());
+const port = 3001;
 
 const cn = {
   host: "localhost",
