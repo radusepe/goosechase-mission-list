@@ -45,13 +45,21 @@ type GetMissionArgs = {
   sortBy: string;
   filter?: string[];
 };
-const getMissions = ({ limit, offset, sortBy, filter }: GetMissionArgs) => {
-  const query = `SELECT * FROM missions ${getFilterBy(filter)} ${getOrderBy(
-    sortBy
-  )} LIMIT ${limit} OFFSET ${offset};`;
+const getMissions = (args: GetMissionArgs) => {
+  let query = "";
+  console.log({ sortBy: args.sortBy });
+  if (args.filter) {
+    query = `SELECT * FROM missions WHERE type LIKE ANY($(filter)) ORDER BY ${getOrderBy(
+      args.sortBy
+    )} LIMIT $(limit) OFFSET $(offset);`;
+  } else {
+    query = `SELECT * FROM missions ORDER BY ${getOrderBy(
+      args.sortBy
+    )} LIMIT $(limit) OFFSET $(offset);`;
+  }
 
   return db
-    .many(query, [filter])
+    .many(query, args)
     .then((data) => {
       return data;
     })
@@ -63,17 +71,10 @@ const getMissions = ({ limit, offset, sortBy, filter }: GetMissionArgs) => {
 
 const getOrderBy = (sortBy: string) => {
   if (sortBy === "id") {
-    return "ORDER BY id";
+    return "id";
   } else {
-    return `ORDER BY lower(${sortBy})`;
+    return `lower(${sortBy})`;
   }
-};
-
-const getFilterBy = (filter?: string[]) => {
-  if (filter) {
-    return "WHERE type LIKE ANY($1)";
-  }
-  return "";
 };
 
 const getAllMissions = () =>
