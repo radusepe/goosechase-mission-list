@@ -1,0 +1,22 @@
+{
+  "name": "goosechase-mission-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "setup": "cd client && npm install && cd ../server && npm install && cd ..",
+    "seed_db": "psql postgres < schema.sql",
+    "server": "cd server && npm run start",
+    "client": "cd client && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/radusepe/goosechase-mission-list.git"
+  },
+  "author": "Radu Sepetan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/radusepe/goosechase-mission-list/issues"
+  },
+  "homepage": "https://github.com/radusepe/goosechase-mission-list#readme"
+}
