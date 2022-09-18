@@ -47,7 +47,7 @@ export const useMissions = (): UseMissionsAPI => {
     setPersistedFilters(filters);
   }, [isSortedByName, filters]);
 
-  // Fetches missions from server controls have been used
+  // Fetches missions from server whenever controls have been used
   useEffect(() => {
     const fetchMissionsBasedOnState = async () => {
       const data = await fetchMissions({
