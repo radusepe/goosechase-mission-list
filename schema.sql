@@ -25,3 +25,20 @@ INSERT INTO missions (name, description, points, type)
   ('Going for Gold', 'What year were the Olympic games played in Montreal?', 200, 'text'),
   ('On the Water', 'Go for a boat ride. Or a swim. Team member must be in the picture', 800, 'photo'),
   ('Other Speedrunners', 'Visit the Olympic Park', 500, 'gps');
+
+-- Create my_user and grant permissions
+DO
+$do$
+BEGIN
+   IF EXISTS (
+      SELECT FROM pg_catalog.pg_roles
+      WHERE  rolname = 'my_user') THEN
+
+      RAISE NOTICE 'Role "my_user" already exists. Skipping.';
+   ELSE
+      CREATE ROLE my_user LOGIN PASSWORD 'my_password';
+   END IF;
+END
+$do$;
+
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO my_user;

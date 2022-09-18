@@ -34,7 +34,8 @@ npm run setup
 
 ## Running the Server
 
-Before running the server, make sure to update `server/src/constants.ts` with your postgres username and password. Make sure this user has appropriate permissions. You may need to run the following:
+NOTE: Seeding the database should have created a user with permissions as well. This username and password is already being used in `server/src/constants.ts`. If you run into permission issues on the server side, you will need to update the constants file with a valid username and password for your postgres setup.
+Make sure this user has appropriate permissions. You may need to run the following:
 
 ```
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO <your_username>;
@@ -55,3 +56,12 @@ npm run client
 ```
 
 You can interact with the client at http://localhost:3000
+
+## Important Files
+
+Create React App comes with a lot of bloat. Below is a list of files that contain most of the logic for this project:
+
+- client/src/components/
+- client/src/hooks/
+- client/App.tsx
+- server/src/index.ts

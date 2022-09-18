@@ -6,6 +6,7 @@
   "scripts": {
     "setup": "cd client && npm install && cd ../server && npm install && cd ..",
     "seed_db": "psql postgres < schema.sql",
+    "sudo_seed_db": "psql -U superuser postgres < schema.sql",
     "server": "cd server && npm run start",
     "client": "cd client && npm run start"
   },

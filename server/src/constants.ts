@@ -4,6 +4,8 @@ export const dbConnection = {
   host: "localhost",
   port: 5432,
   database: "goosechase",
-  user: "admin",
-  password: "password",
+  // Update username and password below if necessary
+  // `npm run seed_db` should create the below user for you.
+  user: "my_user",
+  password: "my_password",
 };
